@@ -1,0 +1,9 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.log
+checkpoints/
+spark-warehouse/
+metastore_db/
+.env

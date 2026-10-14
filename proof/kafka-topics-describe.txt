@@ -1,0 +1,12 @@
+$ kafka-topics.sh --bootstrap-server localhost:9092 --list
+pipeline.market-stats
+pipeline.prices
+
+$ kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic pipeline.prices
+Topic: pipeline.prices	TopicId: TVaTWLE-S0q4e-na7XFIMg	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1,segment.bytes=1073741824
+	Topic: pipeline.prices	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+
+$ kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic pipeline.market-stats
+Topic: pipeline.market-stats	TopicId: XeE0-XaMQ5S4jU-Y5bOQag	PartitionCount: 1	ReplicationFactor: 1	Configs: min.insync.replicas=1,segment.bytes=1073741824
+	Topic: pipeline.market-stats	Partition: 0	Leader: 1	Replicas: 1	Isr: 1	Elr: 	LastKnownElr: 
+

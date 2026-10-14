@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binance Live Pipeline</title>
+<style>
+  body{font-family:system-ui,sans-serif;margin:0;background:#0f172a;color:#e2e8f0}
+  header{padding:18px 28px;background:#1e293b;border-bottom:1px solid #334155}
+  h1{margin:0;font-size:1.35rem} small{color:#94a3b8}
+  main{display:grid;grid-template-columns:repeat(auto-fit,minmax(520px,1fr));gap:20px;padding:20px 28px}
+  section{background:#1e293b;border:1px solid #334155;border-radius:10px;overflow:hidden}
+  h2{margin:0;padding:14px 16px;font-size:1rem;background:#273449}
+  .scroll{max-height:70vh;overflow:auto}
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th,td{padding:8px 12px;text-align:left;white-space:nowrap}
+  th{position:sticky;top:0;background:#334155}
+  tr:nth-child(even){background:#243247}
+  .up{color:#4ade80}.down{color:#f87171}.err{color:#f87171}
+</style>
+</head>
+<body>
+<header><h1>Binance Real-Time Pipeline</h1>
+<small>Kafka &rarr; Spark &rarr; Cassandra &rarr; Flask &middot; <span id="status">loading...</span></small></header>
+<main>
+  <section><h2>Prices (pipeline.prices, bookTicker)</h2><div class="scroll">
+    <table><thead><tr><th>Captured (UTC)</th><th>Symbol</th><th>Bid</th><th>Bid qty</th><th>Ask</th><th>Ask qty</th></tr></thead>
+    <tbody id="prices"></tbody></table></div></section>
+  <section><h2>Market stats (pipeline.market-stats, 24hr)</h2><div class="scroll">
+    <table><thead><tr><th>Captured (UTC)</th><th>Symbol</th><th>Last</th><th>24h %</th><th>High</th><th>Low</th><th>Volume</th><th>Quote vol</th><th>Trades</th></tr></thead>
+    <tbody id="stats"></tbody></table></div></section>
+</main>
+<script>
+const f=(n,d=2)=>n==null?'-':Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+async function load(){
+  const st=document.getElementById('status');
+  try{
+    const r=await fetch('/api/data'); const d=await r.json();
+    if(d.error){st.innerHTML='<span class="err">'+d.error+'</span>';return;}
+    document.getElementById('prices').innerHTML=d.prices.map(x=>
+      `<tr><td>${x.captured_at}</td><td>${x.symbol}</td><td>${f(x.bid_price)}</td><td>${f(x.bid_qty,5)}</td>
+       <td>${f(x.ask_price)}</td><td>${f(x.ask_qty,5)}</td></tr>`).join('');
+    document.getElementById('stats').innerHTML=d.stats.map(x=>
+      `<tr><td>${x.captured_at}</td><td>${x.symbol}</td><td>${f(x.last_price)}</td>
+       <td class="${x.price_change_pct>=0?'up':'down'}">${f(x.price_change_pct)}%</td>
+       <td>${f(x.high_price)}</td><td>${f(x.low_price)}</td><td>${f(x.volume)}</td>
+       <td>${f(x.quote_volume,0)}</td><td>${f(x.trade_count,0)}</td></tr>`).join('');
+    st.textContent='updated '+new Date().toLocaleTimeString()+' (auto-refresh 5s)';
+  }catch(e){st.innerHTML='<span class="err">'+e+'</span>';}
+}
+load(); setInterval(load,5000);
+</script>
+</body></html>

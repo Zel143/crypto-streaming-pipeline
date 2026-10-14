@@ -1,0 +1,12 @@
+$ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic pipeline.prices --from-beginning --max-messages 10 --formatter-property print.key=true
+BTCUSDT	{"symbol": "BTCUSDT", "bid_price": 82822.32, "bid_qty": 7.71667, "ask_price": 82822.33, "ask_qty": 5.43614, "captured_at": "2026-10-10T11:37:47.262Z"}
+ETHUSDT	{"symbol": "ETHUSDT", "bid_price": 2496.35, "bid_qty": 146.9318, "ask_price": 2496.36, "ask_qty": 14.4285, "captured_at": "2026-10-10T11:37:47.262Z"}
+BNBUSDT	{"symbol": "BNBUSDT", "bid_price": 748.99, "bid_qty": 10.494, "ask_price": 749.0, "ask_qty": 17.724, "captured_at": "2026-10-10T11:37:47.262Z"}
+XRPUSDT	{"symbol": "XRPUSDT", "bid_price": 1.4048, "bid_qty": 32614.5, "ask_price": 1.4049, "ask_qty": 10574.3, "captured_at": "2026-10-10T11:37:47.262Z"}
+SOLUSDT	{"symbol": "SOLUSDT", "bid_price": 109.68, "bid_qty": 228.714, "ask_price": 109.69, "ask_qty": 181.851, "captured_at": "2026-10-10T11:37:47.262Z"}
+BTCUSDT	{"symbol": "BTCUSDT", "bid_price": 82822.32, "bid_qty": 10.51027, "ask_price": 82822.33, "ask_qty": 0.39877, "captured_at": "2026-10-10T11:37:52.263Z"}
+ETHUSDT	{"symbol": "ETHUSDT", "bid_price": 2496.39, "bid_qty": 117.9877, "ask_price": 2496.4, "ask_qty": 21.4724, "captured_at": "2026-10-10T11:37:52.263Z"}
+BNBUSDT	{"symbol": "BNBUSDT", "bid_price": 748.99, "bid_qty": 9.525, "ask_price": 749.0, "ask_qty": 17.671, "captured_at": "2026-10-10T11:37:52.263Z"}
+XRPUSDT	{"symbol": "XRPUSDT", "bid_price": 1.4048, "bid_qty": 34876.8, "ask_price": 1.4049, "ask_qty": 14075.6, "captured_at": "2026-10-10T11:37:52.263Z"}
+SOLUSDT	{"symbol": "SOLUSDT", "bid_price": 109.68, "bid_qty": 231.581, "ask_price": 109.69, "ask_qty": 181.669, "captured_at": "2026-10-10T11:37:52.263Z"}
+Processed a total of 10 messages
